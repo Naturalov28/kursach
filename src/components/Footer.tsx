@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4 text-orange-400">ТехноМир</h3>
+            <h3 className="text-xl font-bold mb-4 text-orange-400">Амурский Быт</h3>
             <p className="text-gray-300 mb-4">
               Ваш надежный магазин бытовой техники и электроники
             </p>
@@ -73,14 +73,14 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Mail className="h-5 w-5 mr-2 text-orange-400" />
-                <a href="mailto:info@technomir.ru" className="text-gray-300 hover:text-orange-400">
-                  info@technomir.ru
+                <a href="mailto:info@amurbyt.ru" className="text-gray-300 hover:text-orange-400">
+                  info@amurbyt.ru
                 </a>
               </div>
               <div className="flex items-start">
                 <MapPin className="h-5 w-5 mr-2 text-orange-400 mt-0.5" />
                 <p className="text-gray-300">
-                  г. Москва, ул. Техническая, д. 42
+                  г. Благовещенск, АМГУ
                 </p>
               </div>
               <div className="flex items-start">
@@ -95,7 +95,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-6">
           <p className="text-center text-gray-400">
-            © {currentYear} ТехноМир. Все права защищены.
+            © {currentYear} Амурский Быт. Все права защищены.
           </p>
         </div>
       </div>

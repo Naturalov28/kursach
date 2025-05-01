@@ -20,16 +20,18 @@ const ViewToggle = ({
       <Button
         variant="ghost"
         size="icon"
-        className={gridView ? "bg-orange-100" : ""}
+        className={gridView ? "bg-orange-100 text-orange-600" : ""}
         onClick={() => setGridView(true)}
+        title="Отображение сеткой"
       >
         <Grid3X3 className="h-5 w-5" />
       </Button>
       <Button
         variant="ghost"
         size="icon"
-        className={!gridView ? "bg-orange-100" : ""}
+        className={!gridView ? "bg-orange-100 text-orange-600" : ""}
         onClick={() => setGridView(false)}
+        title="Отображение списком"
       >
         <List className="h-5 w-5" />
       </Button>

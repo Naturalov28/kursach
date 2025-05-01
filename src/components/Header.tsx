@@ -48,7 +48,7 @@ const Header = () => {
       <div className="container flex items-center justify-between py-2">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <span className="text-2xl font-bold text-orange-500">ТехноМир</span>
+          <span className="text-2xl font-bold text-orange-500">Амурский Быт</span>
         </Link>
 
         {/* Search Box - Hidden on Mobile */}

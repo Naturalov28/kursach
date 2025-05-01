@@ -3,7 +3,6 @@ import { Product } from "@/types";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Grid3X3, List } from "lucide-react";
 
 interface ProductGridProps {
   gridView: boolean;
