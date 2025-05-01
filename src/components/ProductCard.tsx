@@ -16,12 +16,16 @@ const ProductCard = ({
   price,
   originalPrice,
   image,
+  images,
   rating,
   inStock,
   link,
   ...rest
 }: ProductCardProps) => {
   const { addToCart } = useCart();
+  
+  // Get the first image from images array or use the image property
+  const displayImage = images && images.length > 0 ? images[0] : image;
   
   // Format price to Russian rubles
   const formatPrice = (price: number) => {
@@ -46,6 +50,7 @@ const ProductCard = ({
       price,
       originalPrice,
       image,
+      images,
       rating,
       inStock,
       ...rest
@@ -59,7 +64,7 @@ const ProductCard = ({
       {/* Product Image */}
       <div className="relative h-48 bg-gray-100">
         <img
-          src={image}
+          src={displayImage}
           alt={name}
           className="w-full h-full object-contain p-4"
         />

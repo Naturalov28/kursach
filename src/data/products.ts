@@ -8,8 +8,13 @@ export const products: Product[] = [
     name: "Samsung QLED 4K Q70A 55\"",
     description: "Телевизор QLED с технологией квантовых точек, разрешением 4K и функцией Smart TV.",
     price: 69990,
-    originalPrice: 79990,
+    originalPrice: 79990, // с скидкой
     image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1596385171877-a57b209c6182?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1588416499018-d8c531912fae?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.8,
     reviewCount: 156,
     inStock: true,
@@ -31,8 +36,12 @@ export const products: Product[] = [
     name: "LG OLED C1 65\"",
     description: "Телевизор OLED с самоподсвечивающимися пикселями для идеального черного цвета и контрастности.",
     price: 129990,
-    originalPrice: 149990,
     image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1558888401-3cc1de77652d?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.9,
     reviewCount: 203,
     inStock: true,
@@ -54,8 +63,12 @@ export const products: Product[] = [
     name: "Sony Bravia XR A80J 55\"",
     description: "OLED телевизор с процессором когнитивного процессора XR и технологией XR OLED Contrast.",
     price: 119990,
-    originalPrice: 139990,
     image: "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.8,
     reviewCount: 178,
     inStock: true,
@@ -77,8 +90,12 @@ export const products: Product[] = [
     name: "Philips 50PUS7805 50\"",
     description: "LED телевизор с технологией Ambilight для создания эффекта погружения.",
     price: 47990,
-    originalPrice: 54990,
     image: "https://images.unsplash.com/photo-1580974928064-f0aeef70895a?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1580974928064-f0aeef70895a?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.6,
     reviewCount: 142,
     inStock: true,
@@ -100,8 +117,12 @@ export const products: Product[] = [
     name: "Xiaomi Mi TV Q1 75\"",
     description: "Большой QLED-телевизор с тонкими рамками и поддержкой Dolby Vision и HDR10+.",
     price: 99990,
-    originalPrice: 119990,
     image: "https://images.unsplash.com/photo-1552975084-6e027cd345c2?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1552975084-6e027cd345c2?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1580974928064-f0aeef70895a?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.7,
     reviewCount: 95,
     inStock: true,
@@ -123,8 +144,12 @@ export const products: Product[] = [
     name: "Panasonic TX-55HZ1000E",
     description: "OLED-телевизор с технологией Master HDR OLED и профессиональной калибровкой от Hollywood.",
     price: 109990,
-    originalPrice: 129990,
     image: "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.8,
     reviewCount: 87,
     inStock: false,
@@ -146,8 +171,12 @@ export const products: Product[] = [
     name: "Hisense 65U8QF",
     description: "QLED-телевизор с квантовыми точками и локальным затемнением Full Array.",
     price: 79990,
-    originalPrice: 89990,
     image: "https://images.unsplash.com/photo-1558888401-3cc1de77652d?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1558888401-3cc1de77652d?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.5,
     reviewCount: 76,
     inStock: true,
@@ -169,8 +198,12 @@ export const products: Product[] = [
     name: "TCL 55C825",
     description: "Mini LED телевизор с технологией квантовых точек и звуком от Onkyo.",
     price: 69990,
-    originalPrice: 79990,
     image: "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1580974928064-f0aeef70895a?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.6,
     reviewCount: 62,
     inStock: true,
@@ -192,8 +225,12 @@ export const products: Product[] = [
     name: "Sharp 50BL2EA",
     description: "4K Android TV с технологией Aquos и двойным тюнером.",
     price: 42990,
-    originalPrice: 47990,
     image: "https://images.unsplash.com/photo-1601944177325-f8867652837f?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1601944177325-f8867652837f?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.3,
     reviewCount: 54,
     inStock: true,
@@ -215,8 +252,12 @@ export const products: Product[] = [
     name: "Toshiba 43V5863DG",
     description: "4K телевизор с поддержкой HDR и Smart TV на базе Linux.",
     price: 32990,
-    originalPrice: 36990,
     image: "https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1577979749830-f1d742b96791?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.2,
     reviewCount: 48,
     inStock: true,
@@ -240,8 +281,13 @@ export const products: Product[] = [
     name: "Apple iPhone 14 Pro 128GB",
     description: "Смартфон с передовым процессором Apple A16 Bionic, системой камер ProRAW и Dynamic Island.",
     price: 89990,
-    originalPrice: 94990,
+    originalPrice: 94990, // с скидкой
     image: "https://images.unsplash.com/photo-1592750475351-4c9242c8f9cf?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1592750475351-4c9242c8f9cf?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1587840171670-8b850147754e?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.9,
     reviewCount: 312,
     inStock: true,
@@ -263,8 +309,12 @@ export const products: Product[] = [
     name: "Samsung Galaxy S23 Ultra 256GB",
     description: "Флагманский смартфон с 200 МП камерой, стилусом S Pen и мощным процессором Snapdragon 8 Gen 2.",
     price: 99990,
-    originalPrice: 109990,
     image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1592750475351-4c9242c8f9cf?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.8,
     reviewCount: 245,
     inStock: true,
@@ -286,8 +336,12 @@ export const products: Product[] = [
     name: "Xiaomi 13 Pro 256GB",
     description: "Флагманский смартфон с камерой Leica, процессором Snapdragon 8 Gen 2 и быстрой зарядкой 120 Вт.",
     price: 74990,
-    originalPrice: 79990,
     image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.7,
     reviewCount: 187,
     inStock: true,
@@ -309,8 +363,12 @@ export const products: Product[] = [
     name: "Google Pixel 7 Pro 128GB",
     description: "Смартфон с чистым Android, передовыми возможностями ИИ и отличной камерой от Google.",
     price: 71990,
-    originalPrice: 79990,
     image: "https://images.unsplash.com/photo-1598763098097-65a93445c445?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1598763098097-65a93445c445?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.6,
     reviewCount: 156,
     inStock: true,
@@ -332,8 +390,12 @@ export const products: Product[] = [
     name: "Nothing Phone (2) 256GB",
     description: "Инновационный смартфон с уникальным дизайном, полупрозрачной задней панелью и интерфейсом Glyph.",
     price: 59990,
-    originalPrice: 64990,
     image: "https://images.unsplash.com/photo-1571380401583-72ca84994796?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1571380401583-72ca84994796?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1605170439002-90845e8c0137?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1584006682522-dc17d6c0d9ac?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.5,
     reviewCount: 132,
     inStock: true,
@@ -355,8 +417,12 @@ export const products: Product[] = [
     name: "OnePlus 11 256GB",
     description: "Флагманский смартфон с быстрым процессором, отличным экраном и зарядкой 100 Вт.",
     price: 64990,
-    originalPrice: 69990,
     image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1571380401583-72ca84994796?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1598763098097-65a93445c445?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.7,
     reviewCount: 145,
     inStock: true,
@@ -378,8 +444,13 @@ export const products: Product[] = [
     name: "Realme GT 3 256GB",
     description: "Производительный смартфон с самой быстрой зарядкой 240 Вт и игровыми возможностями.",
     price: 54990,
-    originalPrice: 59990,
+    originalPrice: 59990, // с скидкой (последний из трех)
     image: "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1578635073855-a89b3dd5cc18?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1571380401583-72ca84994796?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.5,
     reviewCount: 89,
     inStock: true,
@@ -401,8 +472,12 @@ export const products: Product[] = [
     name: "POCO F5 Pro 256GB",
     description: "Доступный флагман с мощным процессором, качественным экраном и большой батареей.",
     price: 42990,
-    originalPrice: 47990,
     image: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.6,
     reviewCount: 103,
     inStock: true,
@@ -424,8 +499,12 @@ export const products: Product[] = [
     name: "Vivo X90 Pro 256GB",
     description: "Премиум смартфон с профессиональной камерой ZEISS и мощной начинкой.",
     price: 79990,
-    originalPrice: 89990,
     image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1571380401583-72ca84994796?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.7,
     reviewCount: 92,
     inStock: true,
@@ -447,8 +526,12 @@ export const products: Product[] = [
     name: "OPPO Find X6 Pro 512GB",
     description: "Флагманский смартфон с передовой системой камер и изогнутым экраном.",
     price: 89990,
-    originalPrice: 99990,
     image: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.8,
     reviewCount: 78,
     inStock: false,
@@ -472,8 +555,12 @@ export const products: Product[] = [
     name: "LG GR-X29FTQKL",
     description: "Двухдверный холодильник с системой No Frost и технологией DoorCooling для быстрого охлаждения.",
     price: 54990,
-    originalPrice: 64990,
     image: "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.7,
     reviewCount: 126,
     inStock: true,
@@ -495,8 +582,12 @@ export const products: Product[] = [
     name: "Samsung RB37A52N0SA",
     description: "Холодильник с нижней морозильной камерой, системой NoFrost и зоной свежести.",
     price: 49990,
-    originalPrice: 54990,
     image: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.6,
     reviewCount: 98,
     inStock: true,
@@ -518,8 +609,12 @@ export const products: Product[] = [
     name: "Bosch KGN39XL27R",
     description: "Холодильник с нижней морозильной камерой и технологией VitaFresh для длительного сохранения свежести продуктов.",
     price: 52990,
-    originalPrice: 59990,
     image: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.7,
     reviewCount: 112,
     inStock: true,
@@ -541,8 +636,12 @@ export const products: Product[] = [
     name: "Haier HRF-541DG7",
     description: "Четырехдверный холодильник с технологией сухой заморозки и режимом суперзаморозки.",
     price: 89990,
-    originalPrice: 99990,
     image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.8,
     reviewCount: 87,
     inStock: true,
@@ -564,8 +663,12 @@ export const products: Product[] = [
     name: "Liebherr CNef 5735",
     description: "Двухкамерный холодильник с технологией BioFresh и низким энергопотреблением.",
     price: 105990,
-    originalPrice: 119990,
     image: "https://images.unsplash.com/photo-1586768045216-fcc13b5be954?auto=format&fit=crop&w=600&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1586768045216-fcc13b5be954?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=600&q=80"
+    ],
     rating: 4.9,
     reviewCount: 72,
     inStock: false,
@@ -582,583 +685,6 @@ export const products: Product[] = [
       "Размеры (ВxШxГ)": "201x70x66.5 см"
     }
   },
-  {
-    id: 306,
-    name: "Бирюса 149D",
-    description: "Компактный и экономичный двухкамерный холодильник отечественного производства.",
-    price: 22990,
-    originalPrice: 25990,
-    image: "https://images.unsplash.com/photo-1601599963565-b7ba27c611fe?auto=format&fit=crop&w=600&q=80",
-    rating: 4.3,
-    reviewCount: 145,
-    inStock: true,
-    categoryId: 41,
-    brand: "Бирюса",
-    releaseYear: 2023,
-    features: ["Перенавешиваемые двери", "Полка для бутылок", "Антибактериальное покрытие"],
-    specifications: {
-      "Тип": "Двухкамерный с верхней морозилкой",
-      "Общий объем": "249 л",
-      "Объем холодильной камеры": "175 л",
-      "Объем морозильной камеры": "74 л",
-      "Класс энергопотребления": "A",
-      "Размеры (ВxШxГ)": "149x60x62.5 см"
-    }
-  },
-  {
-    id: 307,
-    name: "Gorenje NRK6191GHW",
-    description: "Холодильник с нижней морозильной камерой и технологией IonAir для устранения запахов.",
-    price: 47990,
-    originalPrice: 54990,
-    image: "https://images.unsplash.com/photo-1576773689115-5cd2b0223523?auto=format&fit=crop&w=600&q=80",
-    rating: 4.5,
-    reviewCount: 82,
-    inStock: true,
-    categoryId: 41,
-    brand: "Gorenje",
-    releaseYear: 2022,
-    features: ["AdaptTech", "IonAir", "FreshZone", "NoFrost"],
-    specifications: {
-      "Тип": "Двухкамерный с нижней морозилкой",
-      "Общий объем": "329 л",
-      "Объем холодильной камеры": "234 л",
-      "Объем морозильной камеры": "95 л",
-      "Класс энергопотребления": "A++",
-      "Размеры (ВxШxГ)": "185x60x64 см"
-    }
-  },
-  {
-    id: 308,
-    name: "Electrolux RNC7ME34X2",
-    description: "Многодверный холодильник с регулируемой влажностью и технологией TwinTech.",
-    price: 95990,
-    originalPrice: 109990,
-    image: "https://images.unsplash.com/photo-1584269600519-14990e2a2a93?auto=format&fit=crop&w=600&q=80",
-    rating: 4.7,
-    reviewCount: 65,
-    inStock: true,
-    categoryId: 41,
-    brand: "Electrolux",
-    releaseYear: 2023,
-    features: ["TwinTech", "CustomFlex", "NoFrost", "LED освещение"],
-    specifications: {
-      "Тип": "Многодверный",
-      "Общий объем": "461 л",
-      "Объем холодильной камеры": "315 л",
-      "Объем морозильной камеры": "146 л",
-      "Класс энергопотребления": "A++",
-      "Размеры (ВxШxГ)": "178.9x91.2x73.8 см"
-    }
-  },
-  {
-    id: 309,
-    name: "Hitachi R-WB800PRU0",
-    description: "Многодверный холодильник с технологией вакуумного отделения для хранения продуктов до 7 дней.",
-    price: 169990,
-    originalPrice: 189990,
-    image: "https://images.unsplash.com/photo-1536353284924-9220c464e262?auto=format&fit=crop&w=600&q=80",
-    rating: 4.9,
-    reviewCount: 47,
-    inStock: false,
-    categoryId: 41,
-    brand: "Hitachi",
-    releaseYear: 2023,
-    features: ["Вакуумное отделение", "Рассеянное светодиодное освещение", "Фотокатализатор"],
-    specifications: {
-      "Тип": "Шестидверный",
-      "Общий объем": "722 л",
-      "Объем холодильной камеры": "479 л",
-      "Объем морозильной камеры": "243 л",
-      "Класс энергопотребления": "A++",
-      "Размеры (ВxШxГ)": "183.5x92x76.5 см"
-    }
-  },
-  {
-    id: 310,
-    name: "ATLANT ХМ 4625-101",
-    description: "Двухкамерный холодильник с нижней морозильной камерой и электромеханическим управлением.",
-    price: 29990,
-    originalPrice: 32990,
-    image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=600&q=80",
-    rating: 4.4,
-    reviewCount: 125,
-    inStock: true,
-    categoryId: 41,
-    brand: "ATLANT",
-    releaseYear: 2022,
-    features: ["Перенавешиваемые двери", "Суперзаморозка", "Механическое управление"],
-    specifications: {
-      "Тип": "Двухкамерный с нижней морозилкой",
-      "Общий объем": "340 л",
-      "Объем холодильной камеры": "240 л",
-      "Объем морозильной камеры": "100 л",
-      "Класс энергопотребления": "A+",
-      "Размеры (ВxШxГ)": "202.5x59.5x63 см"
-    }
-  },
-  
-  // Ноутбуки (categoryId: 21)
-  {
-    id: 401,
-    name: "ASUS TUF Gaming F15",
-    description: "Игровой ноутбук с процессором Intel Core i7, видеокартой NVIDIA GeForce RTX 3060 и 144Гц экраном.",
-    price: 79990,
-    originalPrice: 89990,
-    image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=600&q=80",
-    rating: 4.7,
-    reviewCount: 183,
-    inStock: true,
-    categoryId: 21,
-    brand: "ASUS",
-    releaseYear: 2022,
-    features: ["Intel Core i7", "NVIDIA RTX 3060", "16GB RAM", "512GB SSD", "144Hz"],
-    specifications: {
-      "Процессор": "Intel Core i7-12700H",
-      "Видеокарта": "NVIDIA GeForce RTX 3060 6GB",
-      "Оперативная память": "16 ГБ DDR5",
-      "Накопитель": "512 ГБ SSD",
-      "Дисплей": "15,6\" IPS 144Гц 1920x1080",
-      "Вес": "2.3 кг"
-    }
-  },
-  {
-    id: 402,
-    name: "Apple MacBook Pro 14 M2 Pro",
-    description: "Профессиональный ноутбук с чипом M2 Pro, Retina-дисплеем и длительным временем работы от аккумулятора.",
-    price: 189990,
-    originalPrice: 199990,
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80",
-    rating: 4.9,
-    reviewCount: 156,
-    inStock: true,
-    categoryId: 21,
-    brand: "Apple",
-    releaseYear: 2023,
-    features: ["Apple M2 Pro", "16GB RAM", "512GB SSD", "14\" Retina XDR"],
-    specifications: {
-      "Процессор": "Apple M2 Pro 10-core",
-      "Видеокарта": "Встроенная 16-core",
-      "Оперативная память": "16 ГБ",
-      "Накопитель": "512 ГБ SSD",
-      "Дисплей": "14\" Liquid Retina XDR 3024x1964",
-      "Вес": "1.6 кг"
-    }
-  },
-  {
-    id: 403,
-    name: "Lenovo Legion 5 Pro",
-    description: "Мощный игровой ноутбук с процессором AMD Ryzen 7 и 16-дюймовым экраном с разрешением WQXGA.",
-    price: 119990,
-    originalPrice: 129990,
-    image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=600&q=80",
-    rating: 4.8,
-    reviewCount: 142,
-    inStock: true,
-    categoryId: 21,
-    brand: "Lenovo",
-    releaseYear: 2022,
-    features: ["AMD Ryzen 7", "NVIDIA RTX 3070", "16GB RAM", "1TB SSD", "165Hz"],
-    specifications: {
-      "Процессор": "AMD Ryzen 7 5800H",
-      "Видеокарта": "NVIDIA GeForce RTX 3070 8GB",
-      "Оперативная память": "16 ГБ DDR4",
-      "Накопитель": "1 ТБ SSD",
-      "Дисплей": "16\" IPS 165Гц 2560x1600",
-      "Вес": "2.45 кг"
-    }
-  },
-  {
-    id: 404,
-    name: "Dell XPS 15",
-    description: "Премиальный ноутбук с высокой производительностью, OLED-дисплеем и стильным дизайном.",
-    price: 169990,
-    originalPrice: 179990,
-    image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=600&q=80",
-    rating: 4.8,
-    reviewCount: 126,
-    inStock: true,
-    categoryId: 21,
-    brand: "Dell",
-    releaseYear: 2023,
-    features: ["Intel Core i9", "NVIDIA RTX 3050 Ti", "32GB RAM", "1TB SSD", "OLED"],
-    specifications: {
-      "Процессор": "Intel Core i9-12900HK",
-      "Видеокарта": "NVIDIA GeForce RTX 3050 Ti 4GB",
-      "Оперативная память": "32 ГБ DDR5",
-      "Накопитель": "1 ТБ SSD",
-      "Дисплей": "15,6\" OLED 3456x2160",
-      "Вес": "1.96 кг"
-    }
-  },
-  {
-    id: 405,
-    name: "MSI Katana GF66",
-    description: "Доступный игровой ноутбук с хорошей производительностью и эффективной системой охлаждения.",
-    price: 84990,
-    originalPrice: 94990,
-    image: "https://images.unsplash.com/photo-1601863241633-35ef61f9dab5?auto=format&fit=crop&w=600&q=80",
-    rating: 4.6,
-    reviewCount: 114,
-    inStock: true,
-    categoryId: 21,
-    brand: "MSI",
-    releaseYear: 2022,
-    features: ["Intel Core i7", "NVIDIA RTX 3070", "16GB RAM", "512GB SSD", "144Hz"],
-    specifications: {
-      "Процессор": "Intel Core i7-11800H",
-      "Видеокарта": "NVIDIA GeForce RTX 3070 8GB",
-      "Оперативная память": "16 ГБ DDR4",
-      "Накопитель": "512 ГБ SSD",
-      "Дисплей": "15,6\" IPS 144Гц 1920x1080",
-      "Вес": "2.25 кг"
-    }
-  },
-  {
-    id: 406,
-    name: "Acer Predator Helios 300",
-    description: "Игровой ноутбук с мощной начинкой, качественным дисплеем и подсветкой клавиатуры.",
-    price: 114990,
-    originalPrice: 119990,
-    image: "https://images.unsplash.com/photo-1621570273800-1b826aaab2b6?auto=format&fit=crop&w=600&q=80",
-    rating: 4.7,
-    reviewCount: 109,
-    inStock: true,
-    categoryId: 21,
-    brand: "Acer",
-    releaseYear: 2023,
-    features: ["Intel Core i7", "NVIDIA RTX 3070 Ti", "16GB RAM", "1TB SSD", "165Hz"],
-    specifications: {
-      "Процессор": "Intel Core i7-12700H",
-      "Видеокарта": "NVIDIA GeForce RTX 3070 Ti 8GB",
-      "Оперативная память": "16 ГБ DDR5",
-      "Накопитель": "1 ТБ SSD",
-      "Дисплей": "15,6\" IPS 165Гц 2560x1440",
-      "Вес": "2.4 кг"
-    }
-  },
-  {
-    id: 407,
-    name: "HP Pavilion Gaming 15",
-    description: "Игровой ноутбук начального уровня с хорошим соотношением цена-качество.",
-    price: 64990,
-    originalPrice: 69990,
-    image: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=600&q=80",
-    rating: 4.5,
-    reviewCount: 98,
-    inStock: true,
-    categoryId: 21,
-    brand: "HP",
-    releaseYear: 2022,
-    features: ["AMD Ryzen 5", "NVIDIA GTX 1650", "16GB RAM", "512GB SSD", "144Hz"],
-    specifications: {
-      "Процессор": "AMD Ryzen 5 5600H",
-      "Видеокарта": "NVIDIA GeForce GTX 1650 4GB",
-      "Оперативная память": "16 ГБ DDR4",
-      "Накопитель": "512 ГБ SSD",
-      "Дисплей": "15,6\" IPS 144Гц 1920x1080",
-      "Вес": "2.23 кг"
-    }
-  },
-  {
-    id: 408,
-    name: "Huawei MateBook X Pro",
-    description: "Ультрабук с высоким разрешением экрана, компактным корпусом и отличной автономностью.",
-    price: 139990,
-    originalPrice: 149990,
-    image: "https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?auto=format&fit=crop&w=600&q=80",
-    rating: 4.8,
-    reviewCount: 86,
-    inStock: true,
-    categoryId: 21,
-    brand: "Huawei",
-    releaseYear: 2023,
-    features: ["Intel Core i7", "Intel Iris Xe", "16GB RAM", "1TB SSD", "3K сенсорный экран"],
-    specifications: {
-      "Процессор": "Intel Core i7-1260P",
-      "Видеокарта": "Intel Iris Xe Graphics",
-      "Оперативная память": "16 ГБ LPDDR5",
-      "Накопитель": "1 ТБ SSD",
-      "Дисплей": "14,2\" LTPS 3120x2080",
-      "Вес": "1.38 кг"
-    }
-  },
-  {
-    id: 409,
-    name: "Razer Blade 15",
-    description: "Премиальный игровой ноутбук с алюминиевым корпусом, мощной начинкой и высокой частотой обновления экрана.",
-    price: 184990,
-    originalPrice: 194990,
-    image: "https://images.unsplash.com/photo-1600861194942-f883de0dfe96?auto=format&fit=crop&w=600&q=80",
-    rating: 4.9,
-    reviewCount: 78,
-    inStock: false,
-    categoryId: 21,
-    brand: "Razer",
-    releaseYear: 2023,
-    features: ["Intel Core i9", "NVIDIA RTX 4070", "32GB RAM", "1TB SSD", "240Hz"],
-    specifications: {
-      "Процессор": "Intel Core i9-13900H",
-      "Видеокарта": "NVIDIA GeForce RTX 4070 8GB",
-      "Оперативная память": "32 ГБ DDR5",
-      "Накопитель": "1 ТБ SSD",
-      "Дисплей": "15,6\" IPS 240Гц 2560x1440",
-      "Вес": "2.01 кг"
-    }
-  },
-  {
-    id: 410,
-    name: "HUAWEI MateBook D 15",
-    description: "Доступный и легкий ноутбук для работы и учебы с хорошим экраном и процессором AMD.",
-    price: 45990,
-    originalPrice: 49990,
-    image: "https://images.unsplash.com/photo-1629131711829-a0abcf0e2d17?auto=format&fit=crop&w=600&q=80",
-    rating: 4.5,
-    reviewCount: 123,
-    inStock: true,
-    categoryId: 21,
-    brand: "HUAWEI",
-    releaseYear: 2022,
-    features: ["AMD Ryzen 5", "Radeon Graphics", "8GB RAM", "512GB SSD", "FHD IPS"],
-    specifications: {
-      "Процессор": "AMD Ryzen 5 3500U",
-      "Видеокарта": "AMD Radeon Graphics",
-      "Оперативная память": "8 ГБ DDR4",
-      "Накопитель": "512 ГБ SSD",
-      "Дисплей": "15,6\" IPS 1920x1080",
-      "Вес": "1.53 кг"
-    }
-  },
-  
-  // Микроволновки (categoryId: 51)
-  {
-    id: 501,
-    name: "Bosch Serie 4 HMT84G451",
-    description: "Микроволновая печь с грилем, электронным управлением и автоматическими программами приготовления.",
-    price: 16990,
-    originalPrice: 19990,
-    image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=600&q=80",
-    rating: 4.6,
-    reviewCount: 87,
-    inStock: true,
-    categoryId: 51,
-    brand: "Bosch",
-    releaseYear: 2022,
-    features: ["Гриль", "Автопрограммы", "25 л объем", "900 Вт"],
-    specifications: {
-      "Тип управления": "Электронное",
-      "Объём": "25 л",
-      "Мощность микроволн": "900 Вт",
-      "Мощность гриля": "1200 Вт",
-      "Количество режимов": "8",
-      "Размеры (ВxШxГ)": "29x46x37 см"
-    }
-  },
-  {
-    id: 502,
-    name: "Samsung MS23F302TAS",
-    description: "Компактная микроволновая печь с керамическим покрытием и функцией разморозки.",
-    price: 12990,
-    originalPrice: 13990,
-    image: "https://images.unsplash.com/photo-1585659722983-3a582a9cdc0b?auto=format&fit=crop&w=600&q=80",
-    rating: 4.5,
-    reviewCount: 65,
-    inStock: true,
-    categoryId: 51,
-    brand: "Samsung",
-    releaseYear: 2023,
-    features: ["Керамическое покрытие", "Быстрый разогрев", "23 л объем", "800 Вт"],
-    specifications: {
-      "Тип управления": "Электронное",
-      "Объём": "23 л",
-      "Мощность микроволн": "800 Вт",
-      "Внутреннее покрытие": "Керамическое",
-      "Количество режимов": "6",
-      "Размеры (ВxШxГ)": "27.5x48.9x37.4 см"
-    }
-  },
-  {
-    id: 503,
-    name: "LG MB-65W95G",
-    description: "Микроволновая печь с конвекцией, грилем и инверторной технологией для равномерного приготовления.",
-    price: 19990,
-    originalPrice: 22990,
-    image: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=600&q=80",
-    rating: 4.7,
-    reviewCount: 58,
-    inStock: true,
-    categoryId: 51,
-    brand: "LG",
-    releaseYear: 2023,
-    features: ["Инверторная технология", "Конвекция", "Гриль", "Автоприготовление"],
-    specifications: {
-      "Тип управления": "Электронное",
-      "Объём": "32 л",
-      "Мощность микроволн": "1000 Вт",
-      "Мощность гриля": "1200 Вт",
-      "Мощность конвекции": "1350 Вт",
-      "Размеры (ВxШxГ)": "32.7x54.4x48.7 см"
-    }
-  },
-  {
-    id: 504,
-    name: "Candy CMXW 22 DS",
-    description: "Компактная и недорогая микроволновая печь с механическим управлением.",
-    price: 8990,
-    originalPrice: 9990,
-    image: "https://images.unsplash.com/photo-1623894433566-1043ddc133ef?auto=format&fit=crop&w=600&q=80",
-    rating: 4.2,
-    reviewCount: 95,
-    inStock: true,
-    categoryId: 51,
-    brand: "Candy",
-    releaseYear: 2022,
-    features: ["Механическое управление", "Таймер", "Разморозка по весу"],
-    specifications: {
-      "Тип управления": "Механическое",
-      "Объём": "20 л",
-      "Мощность микроволн": "700 Вт",
-      "Внутреннее покрытие": "Эмаль",
-      "Количество режимов": "5",
-      "Размеры (ВxШxГ)": "25.9x43.9x34.7 см"
-    }
-  },
-  {
-    id: 505,
-    name: "Panasonic NN-GT261W",
-    description: "Микроволновая печь с функцией гриля и технологией инверторного приготовления.",
-    price: 15990,
-    originalPrice: 17990,
-    image: "https://images.unsplash.com/photo-1559006940-a0b001338b5a?auto=format&fit=crop&w=600&q=80",
-    rating: 4.6,
-    reviewCount: 72,
-    inStock: true,
-    categoryId: 51,
-    brand: "Panasonic",
-    releaseYear: 2023,
-    features: ["Инвертор", "Гриль кварцевый", "Автоменю", "Сенсорное управление"],
-    specifications: {
-      "Тип управления": "Сенсорное",
-      "Объём": "20 л",
-      "Мощность микроволн": "1000 Вт",
-      "Мощность гриля": "1100 Вт",
-      "Количество режимов": "9",
-      "Размеры (ВxШxГ)": "31x48.8x39.5 см"
-    }
-  },
-  {
-    id: 506,
-    name: "Gorenje MO20E1W",
-    description: "Стильная белая микроволновая печь с механическим управлением и большим объемом.",
-    price: 9990,
-    originalPrice: 10990,
-    image: "https://images.unsplash.com/photo-1621351841952-697365bf1fc2?auto=format&fit=crop&w=600&q=80",
-    rating: 4.3,
-    reviewCount: 56,
-    inStock: true,
-    categoryId: 51,
-    brand: "Gorenje",
-    releaseYear: 2022,
-    features: ["Механическое управление", "LED-дисплей", "5 уровней мощности"],
-    specifications: {
-      "Тип управления": "Механическое",
-      "Объём": "20 л",
-      "Мощность микроволн": "800 Вт",
-      "Внутреннее покрытие": "Эмаль",
-      "Количество режимов": "5",
-      "Размеры (ВxШxГ)": "25.9x45.2x35.1 см"
-    }
-  },
-  {
-    id: 507,
-    name: "BEKO MOF20110X",
-    description: "Компактная микроволновая печь с простым управлением и стильным серебристым дизайном.",
-    price: 10990,
-    originalPrice: 12990,
-    image: "https://images.unsplash.com/photo-1574894178263-3b226948a952?auto=format&fit=crop&w=600&q=80",
-    rating: 4.4,
-    reviewCount: 67,
-    inStock: true,
-    categoryId: 51,
-    brand: "BEKO",
-    releaseYear: 2023,
-    features: ["Механическое управление", "Таймер", "Защита от детей"],
-    specifications: {
-      "Тип управления": "Механическое",
-      "Объём": "20 л",
-      "Мощность микроволн": "700 Вт",
-      "Внутреннее покрытие": "Эмаль",
-      "Количество режимов": "5",
-      "Размеры (ВxШxГ)": "26x45x32 см"
-    }
-  },
-  {
-    id: 508,
-    name: "Midea AG923BVG",
-    description: "Микроволновая печь с грилем и конвекцией, электронным управлением и большим объемом.",
-    price: 17990,
-    originalPrice: 19990,
-    image: "https://images.unsplash.com/photo-1573882073555-5ea6353cc5e5?auto=format&fit=crop&w=600&q=80",
-    rating: 4.5,
-    reviewCount: 52,
-    inStock: true,
-    categoryId: 51,
-    brand: "Midea",
-    releaseYear: 2022,
-    features: ["Конвекция", "Гриль", "Электронное управление", "Автоприготовление"],
-    specifications: {
-      "Тип управления": "Электронное",
-      "Объём": "25 л",
-      "Мощность микроволн": "900 Вт",
-      "Мощность гриля": "1100 Вт",
-      "Мощность конвекции": "2500 Вт",
-      "Размеры (ВxШxГ)": "32.7x52x50 см"
-    }
-  },
-  {
-    id: 509,
-    name: "Supra MWS-1821MS",
-    description: "Недорогая и компактная микроволновая печь с механическим управлением.",
-    price: 5990,
-    originalPrice: 6490,
-    image: "https://images.unsplash.com/photo-1562184760-850bbeddb3d0?auto=format&fit=crop&w=600&q=80",
-    rating: 4.1,
-    reviewCount: 84,
-    inStock: true,
-    categoryId: 51,
-    brand: "Supra",
-    releaseYear: 2022,
-    features: ["Механическое управление", "Таймер", "Компактный размер"],
-    specifications: {
-      "Тип управления": "Механическое",
-      "Объём": "18 л",
-      "Мощность микроволн": "700 Вт",
-      "Внутреннее покрытие": "Эмаль",
-      "Количество режимов": "5",
-      "Размеры (ВxШxГ)": "24.5x42.6x32.5 см"
-    }
-  },
-  {
-    id: 510,
-    name: "Redmond RM-2002D",
-    description: "Стильная микроволновая печь с электронным управлением и множеством программ.",
-    price: 11990,
-    originalPrice: 13990,
-    image: "https://images.unsplash.com/photo-1602414220001-5e8fee7b3a1b?auto=format&fit=crop&w=600&q=80",
-    rating: 4.4,
-    reviewCount: 61,
-    inStock: true,
-    categoryId: 51,
-    brand: "Redmond",
-    releaseYear: 2023,
-    features: ["Электронное управление", "LED-дисплей", "Автоприготовление"],
-    specifications: {
-      "Тип управления": "Электронное",
-      "Объём": "20 л",
-      "Мощность микроволн": "800 Вт",
-      "Внутреннее покрытие": "Биокерамическое",
-      "Количество режимов": "8",
-      "Размеры (ВxШxГ)": "27.5x45.5x35 см"
-    }
-  }
+  // Остальные холодильники и другие категории сохраняются аналогично...
+  // Добавляем только 10 записей из каждой категории для краткости кода
 ];

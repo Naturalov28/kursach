@@ -3,219 +3,268 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { products } from "@/data/products";
-import { categories } from "@/data/categories";
-import { Product } from "@/types";
+import ViewToggle from "@/components/catalog/ViewToggle";
 import FilterSidebar from "@/components/catalog/FilterSidebar";
 import ProductGrid from "@/components/catalog/ProductGrid";
-import ViewToggle from "@/components/catalog/ViewToggle";
+import { Product } from "@/types";
+import { products } from "@/data/products";
+import { categories } from "@/data/categories";
 
 const Catalog = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
+  const [currentPage, setCurrentPage] = useState(1);
   const [gridView, setGridView] = useState(true);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100000]);
+  const [sortBy, setSortBy] = useState("popular");
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState<number | null>(null);
+  
+  // Filter states
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [selectedYears, setSelectedYears] = useState<number[]>([]);
   const [inStockOnly, setInStockOnly] = useState(false);
-  const [discountOnly, setDiscountOnly] = useState(false);
-  const [sortBy, setSortBy] = useState("popular");
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
-  const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 12; // Increased to show more products per page
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  const productsPerPage = 12;
 
-  // Initialize with no selected category to show all products by default
-  const initialCategoryId = Number(searchParams.get('category')) || Number(searchParams.get('subcategory')) || 0;
-  const [selectedCategory, setSelectedCategory] = useState<number>(0); // Default to 0 (all products)
-  
-  // Get unique brands from products
-  const availableBrands = [...new Set(products.map(product => product.brand))].sort();
-  
-  // Get unique release years from products
-  const availableYears = [...new Set(products.map(product => product.releaseYear))].sort((a, b) => b - a);
-  
-  // Find min and max price across all products
-  const minMaxPrice = products.reduce(
-    (acc, product) => {
-      if (product.price < acc[0]) acc[0] = product.price;
-      if (product.price > acc[1]) acc[1] = product.price;
-      return acc;
-    },
-    [Number.MAX_SAFE_INTEGER, 0]
-  ) as [number, number];
-  
-  // Initialize price range based on available products
+  // Parse URL search parameters
   useEffect(() => {
-    setPriceRange(minMaxPrice);
-  }, []);
-  
-  // Filter products based on all criteria
-  useEffect(() => {
-    let result = [...products];
+    const categoryParam = searchParams.get("category");
+    const searchParam = searchParams.get("search");
+    const brandParam = searchParams.get("brand");
+    const yearParam = searchParams.get("year");
+    const minPriceParam = searchParams.get("minPrice");
+    const maxPriceParam = searchParams.get("maxPrice");
+    const inStockParam = searchParams.get("inStock");
+    const sortParam = searchParams.get("sort");
+    const pageParam = searchParams.get("page");
     
-    // Filter by category (but only if a category is selected)
-    if (selectedCategory > 0) {
-      result = result.filter(product => product.categoryId === selectedCategory);
+    if (categoryParam) {
+      setCurrentCategory(parseInt(categoryParam));
+    }
+    
+    if (searchParam) {
+      setSearchQuery(searchParam);
+    }
+    
+    if (brandParam) {
+      setSelectedBrands(brandParam.split(","));
+    }
+    
+    if (yearParam) {
+      setSelectedYears(yearParam.split(",").map(y => parseInt(y)));
+    }
+    
+    if (minPriceParam && maxPriceParam) {
+      setPriceRange([parseInt(minPriceParam), parseInt(maxPriceParam)]);
+    }
+    
+    if (inStockParam === "true") {
+      setInStockOnly(true);
+    }
+    
+    if (sortParam) {
+      setSortBy(sortParam);
+    }
+    
+    if (pageParam) {
+      setCurrentPage(parseInt(pageParam));
+    }
+  }, [searchParams]);
+
+  // Apply filters and update URL
+  useEffect(() => {
+    let filtered = [...products];
+    
+    // Filter by search query
+    if (searchQuery) {
+      filtered = filtered.filter(product => 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    
+    // Filter by category
+    if (currentCategory !== null) {
+      filtered = filtered.filter(product => product.categoryId === currentCategory);
     }
     
     // Filter by price range
-    result = result.filter(
-      product => product.price >= priceRange[0] && product.price <= priceRange[1]
+    filtered = filtered.filter(product => 
+      product.price >= priceRange[0] && product.price <= priceRange[1]
     );
     
-    // Filter by selected brands
+    // Filter by brands
     if (selectedBrands.length > 0) {
-      result = result.filter(product => selectedBrands.includes(product.brand));
+      filtered = filtered.filter(product => selectedBrands.includes(product.brand));
     }
     
-    // Filter by selected years
+    // Filter by years
     if (selectedYears.length > 0) {
-      result = result.filter(product => selectedYears.includes(product.releaseYear));
+      filtered = filtered.filter(product => selectedYears.includes(product.releaseYear));
     }
     
-    // Filter by in stock status
+    // Filter by availability
     if (inStockOnly) {
-      result = result.filter(product => product.inStock);
+      filtered = filtered.filter(product => product.inStock);
     }
     
-    // Filter by discount
-    if (discountOnly) {
-      result = result.filter(product => product.originalPrice !== undefined);
-    }
-    
-    // Sort products
+    // Apply sorting
     switch (sortBy) {
-      case "popular":
-        result.sort((a, b) => b.reviewCount - a.reviewCount);
-        break;
       case "price-asc":
-        result.sort((a, b) => a.price - b.price);
+        filtered.sort((a, b) => a.price - b.price);
         break;
       case "price-desc":
-        result.sort((a, b) => b.price - a.price);
+        filtered.sort((a, b) => b.price - a.price);
         break;
       case "rating":
-        result.sort((a, b) => b.rating - a.rating);
+        filtered.sort((a, b) => b.rating - a.rating);
         break;
       case "new":
-        result.sort((a, b) => b.releaseYear - a.releaseYear);
+        filtered.sort((a, b) => b.releaseYear - a.releaseYear);
         break;
+      case "popular":
       default:
+        filtered.sort((a, b) => b.reviewCount - a.reviewCount);
         break;
     }
     
-    setFilteredProducts(result);
-    setCurrentPage(1); // Reset to first page when filters change
-  }, [selectedCategory, priceRange, selectedBrands, selectedYears, inStockOnly, discountOnly, sortBy]);
-  
-  // Handle category selection from URL parameters
-  useEffect(() => {
-    if (initialCategoryId > 0) {
-      setSelectedCategory(initialCategoryId);
+    setFilteredProducts(filtered);
+    
+    // Reset to first page if filters change
+    if (currentPage !== 1) {
+      setCurrentPage(1);
     }
-  }, [initialCategoryId]);
+    
+    // Update URL with filter parameters
+    const params = new URLSearchParams();
+    
+    if (currentCategory !== null) {
+      params.set("category", currentCategory.toString());
+    }
+    
+    if (searchQuery) {
+      params.set("search", searchQuery);
+    }
+    
+    if (selectedBrands.length > 0) {
+      params.set("brand", selectedBrands.join(","));
+    }
+    
+    if (selectedYears.length > 0) {
+      params.set("year", selectedYears.join(","));
+    }
+    
+    if (priceRange[0] > 0 || priceRange[1] < 200000) {
+      params.set("minPrice", priceRange[0].toString());
+      params.set("maxPrice", priceRange[1].toString());
+    }
+    
+    if (inStockOnly) {
+      params.set("inStock", "true");
+    }
+    
+    if (sortBy !== "popular") {
+      params.set("sort", sortBy);
+    }
+    
+    if (currentPage > 1) {
+      params.set("page", currentPage.toString());
+    }
+    
+    setSearchParams(params);
+  }, [currentCategory, priceRange, selectedBrands, selectedYears, inStockOnly, searchQuery, sortBy, setSearchParams]);
   
-  // Get products for current page
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-  
-  // Calculate page count
+  // Calculate pagination
   const pageCount = Math.ceil(filteredProducts.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const currentProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
   
-  // Toggle brand selection
-  const toggleBrand = (brand: string) => {
-    if (selectedBrands.includes(brand)) {
-      setSelectedBrands(selectedBrands.filter(b => b !== brand));
-    } else {
-      setSelectedBrands([...selectedBrands, brand]);
-    }
-  };
+  // Get unique brands and years for filters
+  const uniqueBrands = Array.from(new Set(products.map(product => product.brand)));
+  const uniqueYears = Array.from(new Set(products.map(product => product.releaseYear))).sort((a, b) => b - a);
   
-  // Toggle year selection
-  const toggleYear = (year: number) => {
-    if (selectedYears.includes(year)) {
-      setSelectedYears(selectedYears.filter(y => y !== year));
-    } else {
-      setSelectedYears([...selectedYears, year]);
-    }
-  };
+  // Price range
+  const minPrice = Math.min(...products.map(product => product.price));
+  const maxPrice = Math.max(...products.map(product => product.price));
   
-  // Handle price range updates
-  const handlePriceRangeChange = (newRange: [number, number]) => {
-    setPriceRange(newRange);
-  };
-  
+  // Reset filters
   const handleResetFilters = () => {
-    setPriceRange(minMaxPrice);
+    setPriceRange([minPrice, maxPrice]);
     setSelectedBrands([]);
     setSelectedYears([]);
     setInStockOnly(false);
-    setDiscountOnly(false);
-    setSelectedCategory(0); // Reset to show all products
+    setSearchQuery("");
+    setCurrentCategory(null);
+    setSortBy("popular");
+    setCurrentPage(1);
   };
   
+  // Update filters
+  const handleUpdateFilters = (
+    newPriceRange: [number, number],
+    newSelectedBrands: string[],
+    newSelectedYears: number[],
+    newInStockOnly: boolean
+  ) => {
+    setPriceRange(newPriceRange);
+    setSelectedBrands(newSelectedBrands);
+    setSelectedYears(newSelectedYears);
+    setInStockOnly(newInStockOnly);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow py-6">
-        <div className="container">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl md:text-3xl font-bold">
-              {selectedCategory > 0 
-                ? (categories
-                    .flatMap(c => c.subcategories || [])
-                    .find(c => c.id === selectedCategory)?.name || "Каталог товаров") 
-                : "Каталог товаров"}
-            </h1>
-            <ViewToggle 
-              gridView={gridView}
-              setGridView={setGridView}
-              mobileFiltersOpen={mobileFiltersOpen}
-              setMobileFiltersOpen={setMobileFiltersOpen}
-            />
-          </div>
+      
+      <main className="flex-grow container py-6">
+        <h1 className="text-2xl font-bold mb-6">Каталог товаров</h1>
+        
+        <div className="mb-6">
+          <ViewToggle 
+            gridView={gridView}
+            setGridView={setGridView}
+            mobileFiltersOpen={mobileFiltersOpen}
+            setMobileFiltersOpen={setMobileFiltersOpen}
+            currentCategory={currentCategory}
+            setCurrentCategory={setCurrentCategory}
+            categories={categories}
+          />
+        </div>
+        
+        <div className="flex flex-col md:flex-row gap-6">
+          <FilterSidebar
+            mobileFiltersOpen={mobileFiltersOpen}
+            setMobileFiltersOpen={setMobileFiltersOpen}
+            priceRange={priceRange}
+            selectedBrands={selectedBrands}
+            selectedYears={selectedYears}
+            inStockOnly={inStockOnly}
+            uniqueBrands={uniqueBrands}
+            uniqueYears={uniqueYears}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            onUpdateFilters={handleUpdateFilters}
+            onResetFilters={handleResetFilters}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
           
-          <div className="flex flex-col md:flex-row gap-6">
-            {/* Filters Sidebar - Hidden on mobile unless toggled */}
-            <div className={`md:w-1/4 md:block ${mobileFiltersOpen ? 'block' : 'hidden'}`}>
-              <FilterSidebar 
-                minMaxPrice={minMaxPrice}
-                priceRange={priceRange}
-                setPriceRange={handlePriceRangeChange}
-                availableBrands={availableBrands}
-                selectedBrands={selectedBrands}
-                toggleBrand={toggleBrand}
-                availableYears={availableYears}
-                selectedYears={selectedYears}
-                toggleYear={toggleYear}
-                inStockOnly={inStockOnly}
-                setInStockOnly={setInStockOnly}
-                discountOnly={discountOnly}
-                setDiscountOnly={setDiscountOnly}
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-                categories={categories}
-                handleResetFilters={handleResetFilters}
-              />
-            </div>
-            
-            {/* Products Grid */}
-            <ProductGrid 
-              gridView={gridView}
-              setGridView={setGridView}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              filteredProducts={filteredProducts}
-              currentProducts={currentProducts}
-              handleResetFilters={handleResetFilters}
-              pageCount={pageCount}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
-          </div>
+          <ProductGrid
+            gridView={gridView}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            filteredProducts={filteredProducts}
+            currentProducts={currentProducts}
+            handleResetFilters={handleResetFilters}
+            pageCount={pageCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </main>
+      
       <Footer />
     </div>
   );
