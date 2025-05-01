@@ -1,16 +1,13 @@
 
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { ShoppingCart, Heart } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { Product } from "@/types";
 
-interface ProductCardProps {
-  id: number;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  rating: number;
-  inStock: boolean;
+interface ProductCardProps extends Product {
+  link?: string;
 }
 
 const ProductCard = ({
@@ -20,8 +17,11 @@ const ProductCard = ({
   originalPrice,
   image,
   rating,
-  inStock
+  inStock,
+  link,
+  ...rest
 }: ProductCardProps) => {
+  const { addToCart } = useCart();
   
   // Format price to Russian rubles
   const formatPrice = (price: number) => {
@@ -35,8 +35,26 @@ const ProductCard = ({
   const discount = originalPrice 
     ? Math.round(((originalPrice - price) / originalPrice) * 100) 
     : 0;
+    
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const product: Product = {
+      id,
+      name,
+      price,
+      originalPrice,
+      image,
+      rating,
+      inStock,
+      ...rest
+    };
+    
+    addToCart(product, 1);
+  };
 
-  return (
+  const content = (
     <Card className="h-full overflow-hidden hover:shadow-md transition-shadow">
       {/* Product Image */}
       <div className="relative h-48 bg-gray-100">
@@ -62,7 +80,7 @@ const ProductCard = ({
       <CardContent className="pt-4 pb-0">
         <div className="flex items-center mb-1">
           {[...Array(5)].map((_, i) => (
-            <span key={i} className={i < rating ? "text-yellow-500" : "text-gray-300"}>
+            <span key={i} className={i < Math.floor(rating) ? "text-yellow-500" : "text-gray-300"}>
               ★
             </span>
           ))}
@@ -82,6 +100,7 @@ const ProductCard = ({
         <Button 
           className="w-full bg-orange-500 hover:bg-orange-600"
           disabled={!inStock}
+          onClick={handleAddToCart}
         >
           {inStock ? (
             <>
@@ -92,6 +111,12 @@ const ProductCard = ({
       </CardFooter>
     </Card>
   );
+  
+  return link ? (
+    <Link to={link} className="block h-full">
+      {content}
+    </Link>
+  ) : content;
 };
 
 export default ProductCard;

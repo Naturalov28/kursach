@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   ShoppingCart,
@@ -8,7 +9,9 @@ import {
   Menu,
   X,
   Heart,
-  Package
+  Package,
+  LogOut,
+  UserCircle
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -20,45 +23,53 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { categories } from "@/data/categories";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const isMobile = useIsMobile();
-
-  const categories = [
-    { name: "Телевизоры и аудио", link: "#" },
-    { name: "Компьютеры и ноутбуки", link: "#" },
-    { name: "Смартфоны и планшеты", link: "#" },
-    { name: "Бытовая техника", link: "#" },
-    { name: "Кухонная техника", link: "#" },
-    { name: "Аксессуары", link: "#" },
-  ];
+  const navigate = useNavigate();
+  const { getTotalItems } = useCart();
+  const { currentUser, isAuthenticated, logout } = useAuth();
+  
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/catalog?search=${encodeURIComponent(searchQuery)}`);
+    }
+  };
   
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b shadow-sm">
       {/* Top Header */}
       <div className="container flex items-center justify-between py-2">
         {/* Logo */}
-        <a href="/" className="flex items-center">
+        <Link to="/" className="flex items-center">
           <span className="text-2xl font-bold text-orange-500">ТехноМир</span>
-        </a>
+        </Link>
 
         {/* Search Box - Hidden on Mobile */}
         {!isMobile && (
           <div className="flex-1 mx-8">
-            <div className="relative">
+            <form onSubmit={handleSearch} className="relative">
               <Input
                 type="text"
                 placeholder="Поиск товаров..."
                 className="w-full pl-3 pr-10"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
               <Button 
+                type="submit"
                 className="absolute right-0 top-0 h-full px-3 bg-orange-500 hover:bg-orange-600" 
                 variant="default"
               >
                 <Search className="h-4 w-4" />
               </Button>
-            </div>
+            </form>
           </div>
         )}
 
@@ -82,22 +93,53 @@ const Header = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Аккаунт</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Войти</DropdownMenuItem>
-              <DropdownMenuItem>Зарегистрироваться</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Мои заказы</DropdownMenuItem>
-              <DropdownMenuItem>Настройки профиля</DropdownMenuItem>
+              {isAuthenticated ? (
+                <>
+                  <DropdownMenuLabel className="flex items-center gap-2">
+                    <UserCircle className="h-5 w-5" />
+                    <span>{currentUser?.name}</span>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile">Профиль</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/orders">Мои заказы</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/wishlist">Избранное</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="text-red-500" onClick={logout}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Выйти
+                  </DropdownMenuItem>
+                </>
+              ) : (
+                <>
+                  <DropdownMenuLabel>Аккаунт</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/login">Войти</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/register">Зарегистрироваться</Link>
+                  </DropdownMenuItem>
+                </>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
           
-          <Button variant="ghost" size="icon" className="relative nav-link">
-            <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-              0
-            </span>
-          </Button>
+          <Link to="/cart">
+            <Button variant="ghost" size="icon" className="relative nav-link">
+              <ShoppingCart className="h-5 w-5" />
+              {getTotalItems() > 0 && (
+                <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                  {getTotalItems()}
+                </span>
+              )}
+            </Button>
+          </Link>
           
           {isMobile && (
             <Button 
@@ -119,9 +161,12 @@ const Header = () => {
             <ul className={`flex ${isMobile ? 'flex-col space-y-2' : 'flex-row space-x-6'}`}>
               {categories.map((category) => (
                 <li key={category.name}>
-                  <a href={category.link} className="nav-link font-medium">
+                  <Link 
+                    to={`/catalog?category=${category.id}`} 
+                    className="nav-link font-medium"
+                  >
                     {category.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -132,19 +177,22 @@ const Header = () => {
       {/* Mobile Search - Only shown on mobile */}
       {isMobile && showMobileMenu && (
         <div className="container py-3 bg-white">
-          <div className="relative">
+          <form onSubmit={handleSearch} className="relative">
             <Input
               type="text"
               placeholder="Поиск товаров..."
               className="w-full pl-3 pr-10"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <Button 
+              type="submit"
               className="absolute right-0 top-0 h-full px-3 bg-orange-500 hover:bg-orange-600" 
               variant="default"
             >
               <Search className="h-4 w-4" />
             </Button>
-          </div>
+          </form>
         </div>
       )}
     </header>

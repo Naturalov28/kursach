@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const HeroBanner = () => {
@@ -14,12 +15,16 @@ const HeroBanner = () => {
               Высококачественная бытовая техника по выгодным ценам с доставкой по всей России
             </p>
             <div className="flex gap-4">
-              <Button className="bg-orange-500 hover:bg-orange-600">
-                Смотреть каталог
-              </Button>
-              <Button variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50">
-                Акции месяца
-              </Button>
+              <Link to="/catalog">
+                <Button className="bg-orange-500 hover:bg-orange-600">
+                  Смотреть каталог
+                </Button>
+              </Link>
+              <Link to="/catalog?discount=true">
+                <Button variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50">
+                  Акции месяца
+                </Button>
+              </Link>
             </div>
           </div>
           <div className="relative h-64 md:h-80 overflow-hidden rounded-lg shadow-lg animate-slide-in">
