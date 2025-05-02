@@ -9,6 +9,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Category } from "@/types";
 
 interface FilterSidebarProps {
   minMaxPrice: [number, number];
@@ -26,7 +27,7 @@ interface FilterSidebarProps {
   setDiscountOnly: (value: boolean) => void;
   selectedCategory: number;
   setSelectedCategory: (id: number) => void;
-  categories: Array<{ id: number; name: string; subcategories?: Array<{ id: number; name: string }> }>;
+  categories: Category[];
   handleResetFilters: () => void;
 }
 
@@ -49,6 +50,11 @@ const FilterSidebar = ({
   categories,
   handleResetFilters,
 }: FilterSidebarProps) => {
+  // Get all subcategories for filtering
+  const allSubcategories = categories ? 
+    categories.flatMap(c => c.subcategories || []) : 
+    [];
+
   return (
     <div className="bg-white p-4 rounded-lg border shadow-sm">
       <div className="flex justify-between items-center mb-4">
@@ -79,7 +85,7 @@ const FilterSidebar = ({
               <label htmlFor="all-categories" className="text-sm">Все категории</label>
             </div>
             
-            {categories.flatMap(c => c.subcategories || []).map((subcat) => (
+            {allSubcategories.map((subcat) => (
               <div key={subcat.id} className="flex items-center space-x-2">
                 <Checkbox 
                   id={`category-${subcat.id}`}
