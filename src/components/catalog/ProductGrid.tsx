@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 interface ProductGridProps {
   gridView: boolean;
+  setGridView: (value: boolean) => void;
   sortBy: string;
   setSortBy: (value: string) => void;
   filteredProducts: Product[];
@@ -18,6 +19,7 @@ interface ProductGridProps {
 
 const ProductGrid = ({
   gridView,
+  setGridView,
   sortBy,
   setSortBy,
   filteredProducts,
