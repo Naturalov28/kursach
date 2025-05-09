@@ -24,6 +24,7 @@ const Catalog = () => {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [selectedYears, setSelectedYears] = useState<number[]>([]);
   const [inStockOnly, setInStockOnly] = useState(false);
+  const [discountOnly, setDiscountOnly] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   
   const productsPerPage = 12;
@@ -109,6 +110,11 @@ const Catalog = () => {
     if (inStockOnly) {
       filtered = filtered.filter(product => product.inStock);
     }
+
+    // Filter by discount
+    if (discountOnly) {
+      filtered = filtered.filter(product => product.originalPrice !== undefined);
+    }
     
     // Apply sorting
     switch (sortBy) {
@@ -174,7 +180,7 @@ const Catalog = () => {
     }
     
     setSearchParams(params);
-  }, [currentCategory, priceRange, selectedBrands, selectedYears, inStockOnly, searchQuery, sortBy, setSearchParams]);
+  }, [currentCategory, priceRange, selectedBrands, selectedYears, inStockOnly, discountOnly, searchQuery, sortBy, currentPage, setSearchParams]);
   
   // Calculate pagination
   const pageCount = Math.ceil(filteredProducts.length / productsPerPage);
@@ -195,23 +201,29 @@ const Catalog = () => {
     setSelectedBrands([]);
     setSelectedYears([]);
     setInStockOnly(false);
+    setDiscountOnly(false);
     setSearchQuery("");
     setCurrentCategory(null);
     setSortBy("popular");
     setCurrentPage(1);
   };
   
-  // Update filters
-  const handleUpdateFilters = (
-    newPriceRange: [number, number],
-    newSelectedBrands: string[],
-    newSelectedYears: number[],
-    newInStockOnly: boolean
-  ) => {
-    setPriceRange(newPriceRange);
-    setSelectedBrands(newSelectedBrands);
-    setSelectedYears(newSelectedYears);
-    setInStockOnly(newInStockOnly);
+  // Toggle brand filter
+  const toggleBrand = (brand: string) => {
+    setSelectedBrands(prev => 
+      prev.includes(brand)
+        ? prev.filter(b => b !== brand)
+        : [...prev, brand]
+    );
+  };
+  
+  // Toggle year filter
+  const toggleYear = (year: number) => {
+    setSelectedYears(prev => 
+      prev.includes(year)
+        ? prev.filter(y => y !== year)
+        : [...prev, year]
+    );
   };
 
   return (
@@ -227,41 +239,48 @@ const Catalog = () => {
             setGridView={setGridView}
             mobileFiltersOpen={mobileFiltersOpen}
             setMobileFiltersOpen={setMobileFiltersOpen}
-            currentCategory={currentCategory}
+            currentCategory={currentCategory !== null ? currentCategory : null}
             setCurrentCategory={setCurrentCategory}
             categories={categories}
           />
         </div>
         
         <div className="flex flex-col md:flex-row gap-6">
-          <FilterSidebar
-            mobileFiltersOpen={mobileFiltersOpen}
-            setMobileFiltersOpen={setMobileFiltersOpen}
-            priceRange={priceRange}
-            selectedBrands={selectedBrands}
-            selectedYears={selectedYears}
-            inStockOnly={inStockOnly}
-            uniqueBrands={uniqueBrands}
-            uniqueYears={uniqueYears}
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            onUpdateFilters={handleUpdateFilters}
-            onResetFilters={handleResetFilters}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
+          <div className={`md:w-1/4 ${mobileFiltersOpen ? 'block' : 'hidden md:block'}`}>
+            <FilterSidebar
+              minMaxPrice={[minPrice, maxPrice]}
+              priceRange={priceRange}
+              setPriceRange={setPriceRange}
+              availableBrands={uniqueBrands}
+              selectedBrands={selectedBrands}
+              toggleBrand={toggleBrand}
+              availableYears={uniqueYears}
+              selectedYears={selectedYears}
+              toggleYear={toggleYear}
+              inStockOnly={inStockOnly}
+              setInStockOnly={setInStockOnly}
+              discountOnly={discountOnly}
+              setDiscountOnly={setDiscountOnly}
+              selectedCategory={currentCategory !== null ? currentCategory : 0}
+              setSelectedCategory={(id) => setCurrentCategory(id === 0 ? null : id)}
+              categories={categories}
+              handleResetFilters={handleResetFilters}
+            />
+          </div>
           
-          <ProductGrid
-            gridView={gridView}
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-            filteredProducts={filteredProducts}
-            currentProducts={currentProducts}
-            handleResetFilters={handleResetFilters}
-            pageCount={pageCount}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          <div className="flex-1">
+            <ProductGrid
+              gridView={gridView}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              filteredProducts={filteredProducts}
+              currentProducts={currentProducts}
+              handleResetFilters={handleResetFilters}
+              pageCount={pageCount}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
         </div>
       </main>
       
