@@ -22,11 +22,10 @@ const Catalog = () => {
   const [sortBy, setSortBy] = useState("popular");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 12; // Increased to show more products per page
+  const productsPerPage = 8;
 
-  // Initialize with no selected category to show all products by default
   const initialCategoryId = Number(searchParams.get('category')) || Number(searchParams.get('subcategory')) || 0;
-  const [selectedCategory, setSelectedCategory] = useState<number>(0); // Default to 0 (all products)
+  const [selectedCategory, setSelectedCategory] = useState<number>(initialCategoryId);
   
   // Get unique brands from products
   const availableBrands = [...new Set(products.map(product => product.brand))].sort();
@@ -53,7 +52,7 @@ const Catalog = () => {
   useEffect(() => {
     let result = [...products];
     
-    // Filter by category (but only if a category is selected)
+    // Filter by category
     if (selectedCategory > 0) {
       result = result.filter(product => product.categoryId === selectedCategory);
     }
@@ -108,7 +107,7 @@ const Catalog = () => {
     setCurrentPage(1); // Reset to first page when filters change
   }, [selectedCategory, priceRange, selectedBrands, selectedYears, inStockOnly, discountOnly, sortBy]);
   
-  // Handle category selection from URL parameters
+  // Handle category selection
   useEffect(() => {
     if (initialCategoryId > 0) {
       setSelectedCategory(initialCategoryId);
@@ -152,7 +151,6 @@ const Catalog = () => {
     setSelectedYears([]);
     setInStockOnly(false);
     setDiscountOnly(false);
-    setSelectedCategory(0); // Reset to show all products
   };
   
   return (
