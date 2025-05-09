@@ -3,12 +3,27 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ProductCard from "@/components/ProductCard";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { Filter, Grid3X3, List, ChevronDown } from "lucide-react";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 import { Product } from "@/types";
-import FilterSidebar from "@/components/catalog/FilterSidebar";
-import ProductGrid from "@/components/catalog/ProductGrid";
-import ViewToggle from "@/components/catalog/ViewToggle";
 
 const Catalog = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -41,7 +56,7 @@ const Catalog = () => {
       return acc;
     },
     [Number.MAX_SAFE_INTEGER, 0]
-  ) as [number, number];
+  );
   
   // Initialize price range based on available products
   useEffect(() => {
@@ -79,7 +94,7 @@ const Catalog = () => {
     
     // Filter by discount
     if (discountOnly) {
-      result = result.filter(product => product.originalPrice !== undefined);
+      result = result.filter(product => product.originalPrice !== null);
     }
     
     // Sort products
@@ -122,6 +137,54 @@ const Catalog = () => {
   // Calculate page count
   const pageCount = Math.ceil(filteredProducts.length / productsPerPage);
   
+  // Generate pages array for pagination
+  const generatePages = () => {
+    const pages = [];
+    const maxVisiblePages = 5;
+    
+    if (pageCount <= maxVisiblePages) {
+      for (let i = 1; i <= pageCount; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Always show first page
+      pages.push(1);
+      
+      // Calculate range of pages around current page
+      let startPage = Math.max(2, currentPage - 1);
+      let endPage = Math.min(pageCount - 1, currentPage + 1);
+      
+      // Adjust if at the beginning or end
+      if (currentPage <= 2) {
+        endPage = 3;
+      } else if (currentPage >= pageCount - 1) {
+        startPage = pageCount - 2;
+      }
+      
+      // Add ellipsis if needed
+      if (startPage > 2) {
+        pages.push('ellipsis1');
+      }
+      
+      // Add pages in the range
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+      
+      // Add ellipsis if needed
+      if (endPage < pageCount - 1) {
+        pages.push('ellipsis2');
+      }
+      
+      // Always show last page
+      if (pageCount > 1) {
+        pages.push(pageCount);
+      }
+    }
+    
+    return pages;
+  };
+  
   // Toggle brand selection
   const toggleBrand = (brand: string) => {
     if (selectedBrands.includes(brand)) {
@@ -140,9 +203,13 @@ const Catalog = () => {
     }
   };
   
-  // Handle price range updates
-  const handlePriceRangeChange = (newRange: [number, number]) => {
-    setPriceRange(newRange);
+  // Format price to Russian rubles
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('ru-RU', {
+      style: 'currency',
+      currency: 'RUB',
+      maximumFractionDigits: 0,
+    }).format(price);
   };
   
   const handleResetFilters = () => {
@@ -166,51 +233,258 @@ const Catalog = () => {
                     .find(c => c.id === selectedCategory)?.name || "Каталог товаров") 
                 : "Каталог товаров"}
             </h1>
-            <ViewToggle 
-              gridView={gridView}
-              setGridView={setGridView}
-              mobileFiltersOpen={mobileFiltersOpen}
-              setMobileFiltersOpen={setMobileFiltersOpen}
-            />
+            <div className="flex space-x-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className={gridView ? "bg-orange-100" : ""}
+                onClick={() => setGridView(true)}
+              >
+                <Grid3X3 className="h-5 w-5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className={!gridView ? "bg-orange-100" : ""}
+                onClick={() => setGridView(false)}
+              >
+                <List className="h-5 w-5" />
+              </Button>
+              <Button
+                variant="outline"
+                className="md:hidden"
+                onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
+              >
+                <Filter className="h-4 w-4 mr-2" /> Фильтры
+              </Button>
+            </div>
           </div>
           
           <div className="flex flex-col md:flex-row gap-6">
             {/* Filters Sidebar - Hidden on mobile unless toggled */}
             <div className={`md:w-1/4 md:block ${mobileFiltersOpen ? 'block' : 'hidden'}`}>
-              <FilterSidebar 
-                minMaxPrice={minMaxPrice}
-                priceRange={priceRange}
-                setPriceRange={handlePriceRangeChange}
-                availableBrands={availableBrands}
-                selectedBrands={selectedBrands}
-                toggleBrand={toggleBrand}
-                availableYears={availableYears}
-                selectedYears={selectedYears}
-                toggleYear={toggleYear}
-                inStockOnly={inStockOnly}
-                setInStockOnly={setInStockOnly}
-                discountOnly={discountOnly}
-                setDiscountOnly={setDiscountOnly}
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-                categories={categories}
-                handleResetFilters={handleResetFilters}
-              />
+              <div className="bg-white p-4 rounded-lg border shadow-sm">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="font-bold text-lg">Фильтры</h2>
+                  <Button 
+                    variant="link" 
+                    className="text-sm p-0 h-auto text-orange-500"
+                    onClick={handleResetFilters}
+                  >
+                    Сбросить всё
+                  </Button>
+                </div>
+                
+                {/* Categories filter */}
+                <Collapsible defaultOpen className="mb-4">
+                  <CollapsibleTrigger className="flex justify-between items-center w-full mb-2">
+                    <h3 className="font-medium">Категории</h3>
+                    <ChevronDown className="h-4 w-4" />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="space-y-2 ml-2">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="all-categories"
+                          checked={selectedCategory === 0}
+                          onCheckedChange={() => setSelectedCategory(0)}
+                        />
+                        <label htmlFor="all-categories" className="text-sm">Все категории</label>
+                      </div>
+                      
+                      {categories.flatMap(c => c.subcategories || []).map((subcat) => (
+                        <div key={subcat.id} className="flex items-center space-x-2">
+                          <Checkbox 
+                            id={`category-${subcat.id}`}
+                            checked={selectedCategory === subcat.id}
+                            onCheckedChange={() => setSelectedCategory(subcat.id)}
+                          />
+                          <label htmlFor={`category-${subcat.id}`} className="text-sm">{subcat.name}</label>
+                        </div>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+                
+                {/* Price filter */}
+                <Collapsible defaultOpen className="mb-4">
+                  <CollapsibleTrigger className="flex justify-between items-center w-full mb-2">
+                    <h3 className="font-medium">Цена</h3>
+                    <ChevronDown className="h-4 w-4" />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="space-y-4">
+                      <Slider 
+                        defaultValue={[minMaxPrice[0], minMaxPrice[1]]} 
+                        min={minMaxPrice[0]}
+                        max={minMaxPrice[1]}
+                        step={1000}
+                        value={[priceRange[0], priceRange[1]]}
+                        onValueChange={(value) => setPriceRange([value[0], value[1]])}
+                      />
+                      <div className="flex space-x-2">
+                        <Input 
+                          type="number" 
+                          placeholder="От" 
+                          value={priceRange[0]} 
+                          onChange={(e) => setPriceRange([parseInt(e.target.value) || minMaxPrice[0], priceRange[1]])} 
+                        />
+                        <Input 
+                          type="number" 
+                          placeholder="До" 
+                          value={priceRange[1]} 
+                          onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value) || minMaxPrice[1]])} 
+                        />
+                      </div>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+                
+                {/* Brands filter */}
+                <Collapsible defaultOpen className="mb-4">
+                  <CollapsibleTrigger className="flex justify-between items-center w-full mb-2">
+                    <h3 className="font-medium">Бренды</h3>
+                    <ChevronDown className="h-4 w-4" />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="space-y-2">
+                      {availableBrands.map((brand) => (
+                        <div key={brand} className="flex items-center space-x-2">
+                          <Checkbox 
+                            id={`brand-${brand}`}
+                            checked={selectedBrands.includes(brand)}
+                            onCheckedChange={() => toggleBrand(brand)}
+                          />
+                          <label htmlFor={`brand-${brand}`} className="text-sm">{brand}</label>
+                        </div>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+                
+                {/* Years filter */}
+                <Collapsible defaultOpen className="mb-4">
+                  <CollapsibleTrigger className="flex justify-between items-center w-full mb-2">
+                    <h3 className="font-medium">Год выпуска</h3>
+                    <ChevronDown className="h-4 w-4" />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="space-y-2">
+                      {availableYears.map((year) => (
+                        <div key={year} className="flex items-center space-x-2">
+                          <Checkbox 
+                            id={`year-${year}`}
+                            checked={selectedYears.includes(year)}
+                            onCheckedChange={() => toggleYear(year)}
+                          />
+                          <label htmlFor={`year-${year}`} className="text-sm">{year}</label>
+                        </div>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+                
+                {/* Availability filter */}
+                <Collapsible defaultOpen className="mb-4">
+                  <CollapsibleTrigger className="flex justify-between items-center w-full mb-2">
+                    <h3 className="font-medium">Наличие</h3>
+                    <ChevronDown className="h-4 w-4" />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="in-stock"
+                          checked={inStockOnly}
+                          onCheckedChange={() => setInStockOnly(!inStockOnly)}
+                        />
+                        <label htmlFor="in-stock" className="text-sm">В наличии</label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="discount"
+                          checked={discountOnly}
+                          onCheckedChange={() => setDiscountOnly(!discountOnly)}
+                        />
+                        <label htmlFor="discount" className="text-sm">Со скидкой</label>
+                      </div>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+              </div>
             </div>
             
             {/* Products Grid */}
-            <ProductGrid 
-              gridView={gridView}
-              setGridView={setGridView}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              filteredProducts={filteredProducts}
-              currentProducts={currentProducts}
-              handleResetFilters={handleResetFilters}
-              pageCount={pageCount}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
+            <div className="flex-1">
+              <div className="flex justify-between items-center mb-4">
+                <div className="text-sm text-gray-500">
+                  Найдено {filteredProducts.length} товаров
+                </div>
+                <Select 
+                  value={sortBy}
+                  onValueChange={(value) => setSortBy(value)}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Сортировка" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="popular">По популярности</SelectItem>
+                    <SelectItem value="price-asc">По возрастанию цены</SelectItem>
+                    <SelectItem value="price-desc">По убыванию цены</SelectItem>
+                    <SelectItem value="rating">По рейтингу</SelectItem>
+                    <SelectItem value="new">По новизне</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              {filteredProducts.length === 0 ? (
+                <div className="bg-white p-10 rounded-lg text-center">
+                  <h3 className="text-lg font-medium mb-2">По вашему запросу ничего не найдено</h3>
+                  <p className="text-gray-600 mb-4">Попробуйте изменить параметры фильтрации</p>
+                  <Button 
+                    onClick={handleResetFilters}
+                    className="bg-orange-500 hover:bg-orange-600"
+                  >
+                    Сбросить все фильтры
+                  </Button>
+                </div>
+              ) : (
+                <div className={gridView ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" : "space-y-4"}>
+                  {currentProducts.map((product) => (
+                    <div key={product.id} className={!gridView ? "w-full" : ""}>
+                      <ProductCard 
+                        {...product} 
+                        link={`/product/${product.id}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              {/* Pagination */}
+              {filteredProducts.length > 0 && (
+                <div className="mt-8 flex justify-center">
+                  <div className="flex space-x-1">
+                    {generatePages().map((page, index) => (
+                      page === 'ellipsis1' || page === 'ellipsis2' ? (
+                        <Button key={`${page}-${index}`} variant="outline" className="h-9 w-9 p-0" disabled>
+                          ...
+                        </Button>
+                      ) : (
+                        <Button
+                          key={`page-${page}`}
+                          variant={currentPage === page ? "default" : "outline"}
+                          className={`h-9 w-9 p-0 ${currentPage === page ? "bg-orange-500 hover:bg-orange-600" : ""}`}
+                          onClick={() => setCurrentPage(page as number)}
+                        >
+                          {page}
+                        </Button>
+                      )
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </main>
